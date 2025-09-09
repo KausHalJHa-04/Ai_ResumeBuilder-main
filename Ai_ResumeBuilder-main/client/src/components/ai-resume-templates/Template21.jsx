@@ -1,9 +1,15 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import { useResume } from "../../context/ResumeContext";
-import { FaPhoneAlt, FaEnvelope, FaLinkedin, FaMapMarkerAlt, FaGithub, FaGlobe } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaGithub,
+  FaGlobe,
+} from "react-icons/fa";
 
 const Template21 = () => {
   const resumeRef = useRef(null);
@@ -22,7 +28,9 @@ const Template21 = () => {
   const handleArrayFieldChange = (field, index, value) => {
     setLocalData((prev) => ({
       ...prev,
-      [field]: prev[field].map((item, i) => (i === index ? { ...item, ...value } : item)),
+      [field]: prev[field].map((item, i) =>
+        i === index ? { ...item, ...value } : item
+      ),
     }));
   };
 
@@ -43,7 +51,7 @@ const Template21 = () => {
   const sectionTitleStyle = {
     fontWeight: "bold",
     fontSize: "1.1rem",
-    borderBottom: "2px solid #87CEEB", // Light blue underline like the image
+    borderBottom: "2px solid #3d8eeb", // Light blue underline like the image
     color: "#000000", // Black text like the image
     marginTop: "1rem",
     paddingBottom: "0.25rem",
@@ -65,7 +73,7 @@ const Template21 = () => {
     padding: "1.5rem",
     borderRadius: "0.5rem",
     marginBottom: "1rem",
-    border: "1px solid #87CEEB",
+    border: "1px solid #3d8eeb",
   };
 
   return (
@@ -109,93 +117,6 @@ const Template21 = () => {
                   gap: "1.5rem",
                 }}
               >
-                {/* Left - Profile Image */}
-                <div style={{ flexShrink: 0 }}>
-                  {editMode ? (
-                    <div style={{ textAlign: "center" }}>
-                      <div
-                        style={{
-                          width: "120px",
-                          height: "120px",
-                          border: "2px dashed #87CEEB",
-                          borderRadius: "50%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginBottom: "0.5rem",
-                          cursor: "pointer",
-                          backgroundColor: "#f8f9fa",
-                        }}
-                        onPaste={(e) => {
-                          e.preventDefault();
-                          const items = e.clipboardData.items;
-                          for (let i = 0; i < items.length; i++) {
-                            if (items[i].type.indexOf('image') !== -1) {
-                              const file = items[i].getAsFile();
-                              const reader = new FileReader();
-                              reader.onload = (e) => {
-                                handleFieldChange("profileImage", e.target.result);
-                              };
-                              reader.readAsDataURL(file);
-                              break;
-                            }
-                          }
-                        }}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          const files = e.dataTransfer.files;
-                          if (files.length > 0 && files[0].type.startsWith('image/')) {
-                            const reader = new FileReader();
-                            reader.onload = (e) => {
-                              handleFieldChange("profileImage", e.target.result);
-                            };
-                            reader.readAsDataURL(files[0]);
-                          }
-                        }}
-                        onDragOver={(e) => e.preventDefault()}
-                        title="Paste image (Ctrl+V) or drag & drop image here"
-                      >
-                        {localData.profileImage ? (
-                          <img
-                            src={localData.profileImage}
-                            alt="Profile Preview"
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                            }}
-                          />
-                        ) : (
-                          <div style={{ textAlign: "center", color: "#87CEEB" }}>
-                            <div style={{ fontSize: "2rem", marginBottom: "0.25rem" }}>📷</div>
-                            <div style={{ fontSize: "0.75rem" }}>Paste Image</div>
-                          </div>
-                        )}
-                      </div>
-                      <p style={{ fontSize: "0.75rem", color: "#6b7280", margin: 0 }}>
-                        Paste image (Ctrl+V) or drag & drop
-                      </p>
-                    </div>
-                  ) : (
-                    <img
-                      src={localData.profileImage || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"}
-                      alt="Profile"
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        border: "3px solid #87CEEB",
-                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      }}
-                      onError={(e) => {
-                        e.target.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face";
-                      }}
-                    />
-                  )}
-                </div>
-
                 {/* Center - Name and Role */}
                 <div style={{ flex: 1, textAlign: "center" }}>
                   {editMode ? (
@@ -203,7 +124,9 @@ const Template21 = () => {
                       <input
                         type="text"
                         value={localData.name}
-                        onChange={(e) => handleFieldChange("name", e.target.value)}
+                        onChange={(e) =>
+                          handleFieldChange("name", e.target.value)
+                        }
                         style={{
                           fontSize: "2rem",
                           fontWeight: "bold",
@@ -219,7 +142,9 @@ const Template21 = () => {
                       <input
                         type="text"
                         value={localData.role}
-                        onChange={(e) => handleFieldChange("role", e.target.value)}
+                        onChange={(e) =>
+                          handleFieldChange("role", e.target.value)
+                        }
                         style={{
                           fontSize: "1.1rem",
                           color: "#000000",
@@ -244,7 +169,13 @@ const Template21 = () => {
                       >
                         {resumeData.name}
                       </h1>
-                      <h2 style={{ fontSize: "1.1rem", color: "#000000", margin: "0 0 0.5rem 0" }}>
+                      <h2
+                        style={{
+                          fontSize: "1.1rem",
+                          color: "#000000",
+                          margin: "0 0 0.5rem 0",
+                        }}
+                      >
                         {resumeData.role}
                       </h2>
                     </>
@@ -265,12 +196,20 @@ const Template21 = () => {
                   >
                     {editMode ? (
                       <>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaPhoneAlt color="#87CEEB" size="12" />
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaPhoneAlt color="#3d8eeb" size="12" />
                           <input
                             type="text"
                             value={localData.phone || ""}
-                            onChange={(e) => handleFieldChange("phone", e.target.value)}
+                            onChange={(e) =>
+                              handleFieldChange("phone", e.target.value)
+                            }
                             style={{
                               border: "none",
                               background: "transparent",
@@ -282,12 +221,20 @@ const Template21 = () => {
                             placeholder="Phone"
                           />
                         </span>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaEnvelope color="#87CEEB" size="12" />
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaEnvelope color="#3d8eeb" size="12" />
                           <input
                             type="text"
                             value={localData.email || ""}
-                            onChange={(e) => handleFieldChange("email", e.target.value)}
+                            onChange={(e) =>
+                              handleFieldChange("email", e.target.value)
+                            }
                             style={{
                               border: "none",
                               background: "transparent",
@@ -299,12 +246,20 @@ const Template21 = () => {
                             placeholder="Email"
                           />
                         </span>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaLinkedin color="#87CEEB" size="12" />
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaLinkedin color="#3d8eeb" size="12" />
                           <input
                             type="text"
                             value={localData.linkedin || ""}
-                            onChange={(e) => handleFieldChange("linkedin", e.target.value)}
+                            onChange={(e) =>
+                              handleFieldChange("linkedin", e.target.value)
+                            }
                             style={{
                               border: "none",
                               background: "transparent",
@@ -316,12 +271,20 @@ const Template21 = () => {
                             placeholder="LinkedIn"
                           />
                         </span>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaMapMarkerAlt color="#87CEEB" size="12" />
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaMapMarkerAlt color="#3d8eeb" size="12" />
                           <input
                             type="text"
                             value={localData.location || ""}
-                            onChange={(e) => handleFieldChange("location", e.target.value)}
+                            onChange={(e) =>
+                              handleFieldChange("location", e.target.value)
+                            }
                             style={{
                               border: "none",
                               background: "transparent",
@@ -334,12 +297,20 @@ const Template21 = () => {
                           />
                         </span>
                         {localData.github && (
-                          <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                            <FaGithub color="#87CEEB" size="12" />
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                            }}
+                          >
+                            <FaGithub color="##3d8eeb" size="12" />
                             <input
                               type="text"
                               value={localData.github || ""}
-                              onChange={(e) => handleFieldChange("github", e.target.value)}
+                              onChange={(e) =>
+                                handleFieldChange("github", e.target.value)
+                              }
                               style={{
                                 border: "none",
                                 background: "transparent",
@@ -353,12 +324,20 @@ const Template21 = () => {
                           </span>
                         )}
                         {localData.portfolio && (
-                          <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                            <FaGlobe color="#87CEEB" size="12" />
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                            }}
+                          >
+                            <FaGlobe color="#3d8eeb" size="12" />
                             <input
                               type="text"
                               value={localData.portfolio || ""}
-                              onChange={(e) => handleFieldChange("portfolio", e.target.value)}
+                              onChange={(e) =>
+                                handleFieldChange("portfolio", e.target.value)
+                              }
                               style={{
                                 border: "none",
                                 background: "transparent",
@@ -374,26 +353,68 @@ const Template21 = () => {
                       </>
                     ) : (
                       <>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaPhoneAlt color="#87CEEB" size="12" /> {resumeData.phone}
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaPhoneAlt color="#3d8eeb" size="12" />{" "}
+                          {resumeData.phone}
                         </span>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaEnvelope color="#87CEEB" size="12" /> {resumeData.email}
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaEnvelope color="#3d8eeb" size="12" />{" "}
+                          {resumeData.email}
                         </span>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaLinkedin color="#87CEEB" size="12" /> {resumeData.linkedin}
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaLinkedin color="#3d8eeb" size="12" />{" "}
+                          {resumeData.linkedin}
                         </span>
-                        <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                          <FaMapMarkerAlt color="#87CEEB" size="12" /> {resumeData.location}
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                          }}
+                        >
+                          <FaMapMarkerAlt color="#3d8eeb" size="12" />{" "}
+                          {resumeData.location}
                         </span>
                         {resumeData.github && (
-                          <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                            <FaGithub color="#87CEEB" size="12" /> {resumeData.github}
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                            }}
+                          >
+                            <FaGithub color="#3d8eeb" size="12" />{" "}
+                            {resumeData.github}
                           </span>
                         )}
                         {resumeData.portfolio && (
-                          <span style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
-                            <FaGlobe color="#87CEEB" size="12" /> {resumeData.portfolio}
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                            }}
+                          >
+                            <FaGlobe color="#3d8eeb" size="12" />{" "}
+                            {resumeData.portfolio}
                           </span>
                         )}
                       </>
@@ -413,8 +434,19 @@ const Template21 = () => {
                   <div style={sectionCardStyle}>
                     {editMode ? (
                       <textarea
-                        value={Array.isArray(localData.skills) ? localData.skills.join(", ") : localData.skills || ""}
-                        onChange={(e) => handleFieldChange("skills", e.target.value.split(", ").filter(skill => skill.trim()))}
+                        value={
+                          Array.isArray(localData.skills)
+                            ? localData.skills.join(", ")
+                            : localData.skills || ""
+                        }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            "skills",
+                            e.target.value
+                              .split(", ")
+                              .filter((skill) => skill.trim())
+                          )
+                        }
                         style={{
                           width: "100%",
                           minHeight: "80px",
@@ -428,11 +460,25 @@ const Template21 = () => {
                         placeholder="Enter your skills (comma separated)..."
                       />
                     ) : (
-                      <ul style={{ margin: "0", paddingLeft: "1rem", fontSize: "0.85rem", lineHeight: "1.3" }}>
-                        {Array.isArray(resumeData.skills) ? resumeData.skills.map((skill, idx) => (
-                          <li key={idx} style={{ marginBottom: "0.5rem" }}>{skill}</li>
-                        )) : (
-                          <li>React, Node.js, MongoDB, Express, JavaScript, HTML, CSS</li>
+                      <ul
+                        style={{
+                          margin: "0",
+                          paddingLeft: "1rem",
+                          fontSize: "0.85rem",
+                          lineHeight: "1.3",
+                        }}
+                      >
+                        {Array.isArray(resumeData.skills) ? (
+                          resumeData.skills.map((skill, idx) => (
+                            <li key={idx} style={{ marginBottom: "0.5rem" }}>
+                              {skill}
+                            </li>
+                          ))
+                        ) : (
+                          <li>
+                            React, Node.js, MongoDB, Express, JavaScript, HTML,
+                            CSS
+                          </li>
                         )}
                       </ul>
                     )}
@@ -445,8 +491,19 @@ const Template21 = () => {
                   <div style={sectionCardStyle}>
                     {editMode ? (
                       <textarea
-                        value={Array.isArray(localData.languages) ? localData.languages.join(", ") : localData.languages || ""}
-                        onChange={(e) => handleFieldChange("languages", e.target.value.split(", ").filter(lang => lang.trim()))}
+                        value={
+                          Array.isArray(localData.languages)
+                            ? localData.languages.join(", ")
+                            : localData.languages || ""
+                        }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            "languages",
+                            e.target.value
+                              .split(", ")
+                              .filter((lang) => lang.trim())
+                          )
+                        }
                         style={{
                           width: "100%",
                           minHeight: "50px",
@@ -460,10 +517,21 @@ const Template21 = () => {
                         placeholder="Enter languages (comma separated)..."
                       />
                     ) : (
-                      <ul style={{ margin: "0", paddingLeft: "1rem", fontSize: "0.85rem", lineHeight: "1.3" }}>
-                        {Array.isArray(resumeData.languages) ? resumeData.languages.map((lang, idx) => (
-                          <li key={idx} style={{ marginBottom: "0.5rem" }}>{lang}</li>
-                        )) : (
+                      <ul
+                        style={{
+                          margin: "0",
+                          paddingLeft: "1rem",
+                          fontSize: "0.85rem",
+                          lineHeight: "1.3",
+                        }}
+                      >
+                        {Array.isArray(resumeData.languages) ? (
+                          resumeData.languages.map((lang, idx) => (
+                            <li key={idx} style={{ marginBottom: "0.5rem" }}>
+                              {lang}
+                            </li>
+                          ))
+                        ) : (
                           <li>English (Native), Spanish (Intermediate)</li>
                         )}
                       </ul>
@@ -482,7 +550,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={edu.degree || ""}
-                              onChange={(e) => handleArrayFieldChange("education", index, { degree: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("education", index, {
+                                  degree: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.95rem",
@@ -496,7 +568,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={edu.institution || ""}
-                              onChange={(e) => handleArrayFieldChange("education", index, { institution: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("education", index, {
+                                  institution: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.85rem",
@@ -510,7 +586,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={edu.duration || ""}
-                              onChange={(e) => handleArrayFieldChange("education", index, { duration: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("education", index, {
+                                  duration: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -524,7 +604,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={edu.location || ""}
-                              onChange={(e) => handleArrayFieldChange("education", index, { location: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("education", index, {
+                                  location: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -537,16 +621,41 @@ const Template21 = () => {
                           </>
                         ) : (
                           <>
-                            <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "0.95rem", fontWeight: "bold" }}>
-                              {edu.degree || "Bachelor of Science in Computer Science"}
+                            <h4
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.95rem",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {edu.degree ||
+                                "Bachelor of Science in Computer Science"}
                             </h4>
-                            <p style={{ margin: "0 0 0.2rem 0", fontSize: "0.85rem", color: "#000000" }}>
+                            <p
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.85rem",
+                                color: "#000000",
+                              }}
+                            >
                               {edu.institution || "University of Technology"}
                             </p>
-                            <p style={{ margin: "0 0 0.2rem 0", fontSize: "0.75rem", color: "#6b7280" }}>
+                            <p
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.75rem",
+                                color: "#6b7280",
+                              }}
+                            >
                               {edu.duration || "2016 - 2020"}
                             </p>
-                            <p style={{ margin: "0", fontSize: "0.75rem", color: "#6b7280" }}>
+                            <p
+                              style={{
+                                margin: "0",
+                                fontSize: "0.75rem",
+                                color: "#6b7280",
+                              }}
+                            >
                               {edu.location || "New York, NY"}
                             </p>
                           </>
@@ -570,7 +679,15 @@ const Template21 = () => {
                           }}
                         />
                       ) : (
-                        <p style={{ margin: "0", fontSize: "0.85rem", lineHeight: "1.3", fontStyle: "italic", color: "#6b7280" }}>
+                        <p
+                          style={{
+                            margin: "0",
+                            fontSize: "0.85rem",
+                            lineHeight: "1.3",
+                            fontStyle: "italic",
+                            color: "#6b7280",
+                          }}
+                        >
                           Add your education details here...
                         </p>
                       )}
@@ -584,8 +701,19 @@ const Template21 = () => {
                   <div style={sectionCardStyle}>
                     {editMode ? (
                       <textarea
-                        value={Array.isArray(localData.interests) ? localData.interests.join(", ") : localData.interests || ""}
-                        onChange={(e) => handleFieldChange("interests", e.target.value.split(", ").filter(interest => interest.trim()))}
+                        value={
+                          Array.isArray(localData.interests)
+                            ? localData.interests.join(", ")
+                            : localData.interests || ""
+                        }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            "interests",
+                            e.target.value
+                              .split(", ")
+                              .filter((interest) => interest.trim())
+                          )
+                        }
                         style={{
                           width: "100%",
                           minHeight: "50px",
@@ -599,8 +727,16 @@ const Template21 = () => {
                         placeholder="Enter your interests (comma separated)..."
                       />
                     ) : (
-                      <p style={{ margin: "0", fontSize: "0.85rem", lineHeight: "1.3" }}>
-                        {Array.isArray(resumeData.interests) ? resumeData.interests.join(", ") : "Web Development, Open Source, Reading, Travel"}
+                      <p
+                        style={{
+                          margin: "0",
+                          fontSize: "0.85rem",
+                          lineHeight: "1.3",
+                        }}
+                      >
+                        {Array.isArray(resumeData.interests)
+                          ? resumeData.interests.join(", ")
+                          : "Web Development, Open Source, Reading, Travel"}
                       </p>
                     )}
                   </div>
@@ -616,7 +752,9 @@ const Template21 = () => {
                     {editMode ? (
                       <textarea
                         value={localData.summary || ""}
-                        onChange={(e) => handleFieldChange("summary", e.target.value)}
+                        onChange={(e) =>
+                          handleFieldChange("summary", e.target.value)
+                        }
                         style={{
                           width: "100%",
                           minHeight: "60px",
@@ -630,8 +768,15 @@ const Template21 = () => {
                         placeholder="Enter your professional summary..."
                       />
                     ) : (
-                      <p style={{ margin: "0", fontSize: "0.85rem", lineHeight: "1.3" }}>
-                        {resumeData.summary || "Passionate full-stack developer with 3+ years of experience building scalable web applications and delivering exceptional user experiences."}
+                      <p
+                        style={{
+                          margin: "0",
+                          fontSize: "0.85rem",
+                          lineHeight: "1.3",
+                        }}
+                      >
+                        {resumeData.summary ||
+                          "Passionate full-stack developer with 3+ years of experience building scalable web applications and delivering exceptional user experiences."}
                       </p>
                     )}
                   </div>
@@ -648,7 +793,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={exp.title || ""}
-                              onChange={(e) => handleArrayFieldChange("experience", index, { title: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("experience", index, {
+                                  title: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.95rem",
@@ -662,7 +811,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={exp.companyName || ""}
-                              onChange={(e) => handleArrayFieldChange("experience", index, { companyName: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("experience", index, {
+                                  companyName: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.85rem",
@@ -676,7 +829,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={exp.date || ""}
-                              onChange={(e) => handleArrayFieldChange("experience", index, { date: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("experience", index, {
+                                  date: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -690,7 +847,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={exp.companyLocation || ""}
-                              onChange={(e) => handleArrayFieldChange("experience", index, { companyLocation: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("experience", index, {
+                                  companyLocation: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -702,8 +863,18 @@ const Template21 = () => {
                               placeholder="Company Location"
                             />
                             <textarea
-                              value={Array.isArray(exp.accomplishment) ? exp.accomplishment.join("\n") : exp.accomplishment || ""}
-                              onChange={(e) => handleArrayFieldChange("experience", index, { accomplishment: e.target.value.split("\n").filter(item => item.trim()) })}
+                              value={
+                                Array.isArray(exp.accomplishment)
+                                  ? exp.accomplishment.join("\n")
+                                  : exp.accomplishment || ""
+                              }
+                              onChange={(e) =>
+                                handleArrayFieldChange("experience", index, {
+                                  accomplishment: e.target.value
+                                    .split("\n")
+                                    .filter((item) => item.trim()),
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 minHeight: "60px",
@@ -719,24 +890,58 @@ const Template21 = () => {
                           </>
                         ) : (
                           <>
-                            <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "0.95rem", fontWeight: "bold" }}>
+                            <h4
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.95rem",
+                                fontWeight: "bold",
+                              }}
+                            >
                               {exp.title || "Software Developer"}
                             </h4>
-                            <p style={{ margin: "0 0 0.2rem 0", fontSize: "0.85rem", color: "#000000" }}>
+                            <p
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.85rem",
+                                color: "#000000",
+                              }}
+                            >
                               {exp.companyName || "ABC Company"}
                             </p>
-                            <p style={{ margin: "0 0 0.3rem 0", fontSize: "0.75rem", color: "#6b7280" }}>
-                              {exp.date || "2020 - Present"} | {exp.companyLocation || "New York, NY"}
+                            <p
+                              style={{
+                                margin: "0 0 0.3rem 0",
+                                fontSize: "0.75rem",
+                                color: "#6b7280",
+                              }}
+                            >
+                              {exp.date || "2020 - Present"} |{" "}
+                              {exp.companyLocation || "New York, NY"}
                             </p>
-                            {Array.isArray(exp.accomplishment) && exp.accomplishment.length > 0 ? (
-                              <ul style={{ margin: "0", paddingLeft: "1rem", fontSize: "0.8rem", lineHeight: "1.3" }}>
+                            {Array.isArray(exp.accomplishment) &&
+                            exp.accomplishment.length > 0 ? (
+                              <ul
+                                style={{
+                                  margin: "0",
+                                  paddingLeft: "1rem",
+                                  fontSize: "0.8rem",
+                                  lineHeight: "1.3",
+                                }}
+                              >
                                 {exp.accomplishment.map((acc, accIndex) => (
                                   <li key={accIndex}>{acc}</li>
                                 ))}
                               </ul>
                             ) : (
-                              <p style={{ margin: "0", fontSize: "0.8rem", lineHeight: "1.3" }}>
-                                Built scalable web applications and improved system performance.
+                              <p
+                                style={{
+                                  margin: "0",
+                                  fontSize: "0.8rem",
+                                  lineHeight: "1.3",
+                                }}
+                              >
+                                Built scalable web applications and improved
+                                system performance.
                               </p>
                             )}
                           </>
@@ -760,7 +965,15 @@ const Template21 = () => {
                           }}
                         />
                       ) : (
-                        <p style={{ margin: "0", fontSize: "0.85rem", lineHeight: "1.3", fontStyle: "italic", color: "#6b7280" }}>
+                        <p
+                          style={{
+                            margin: "0",
+                            fontSize: "0.85rem",
+                            lineHeight: "1.3",
+                            fontStyle: "italic",
+                            color: "#6b7280",
+                          }}
+                        >
                           Add your professional experience here...
                         </p>
                       )}
@@ -779,7 +992,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={project.name || ""}
-                              onChange={(e) => handleArrayFieldChange("projects", index, { name: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("projects", index, {
+                                  name: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.95rem",
@@ -792,7 +1009,11 @@ const Template21 = () => {
                             />
                             <textarea
                               value={project.description || ""}
-                              onChange={(e) => handleArrayFieldChange("projects", index, { description: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("projects", index, {
+                                  description: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 minHeight: "50px",
@@ -808,8 +1029,18 @@ const Template21 = () => {
                             />
                             <input
                               type="text"
-                              value={Array.isArray(project.technologies) ? project.technologies.join(", ") : project.technologies || ""}
-                              onChange={(e) => handleArrayFieldChange("projects", index, { technologies: e.target.value.split(", ").filter(tech => tech.trim()) })}
+                              value={
+                                Array.isArray(project.technologies)
+                                  ? project.technologies.join(", ")
+                                  : project.technologies || ""
+                              }
+                              onChange={(e) =>
+                                handleArrayFieldChange("projects", index, {
+                                  technologies: e.target.value
+                                    .split(", ")
+                                    .filter((tech) => tech.trim()),
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -823,7 +1054,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={project.link || ""}
-                              onChange={(e) => handleArrayFieldChange("projects", index, { link: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("projects", index, {
+                                  link: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -837,7 +1072,11 @@ const Template21 = () => {
                             <input
                               type="text"
                               value={project.github || ""}
-                              onChange={(e) => handleArrayFieldChange("projects", index, { github: e.target.value })}
+                              onChange={(e) =>
+                                handleArrayFieldChange("projects", index, {
+                                  github: e.target.value,
+                                })
+                              }
                               style={{
                                 width: "100%",
                                 fontSize: "0.75rem",
@@ -850,21 +1089,72 @@ const Template21 = () => {
                           </>
                         ) : (
                           <>
-                            <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "0.95rem", fontWeight: "bold" }}>
+                            <h4
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.95rem",
+                                fontWeight: "bold",
+                              }}
+                            >
                               {project.name || "Project Name"}
                             </h4>
-                            <p style={{ margin: "0 0 0.2rem 0", fontSize: "0.8rem", lineHeight: "1.3" }}>
-                              {project.description || "Project description goes here..."}
+                            <p
+                              style={{
+                                margin: "0 0 0.2rem 0",
+                                fontSize: "0.8rem",
+                                lineHeight: "1.3",
+                              }}
+                            >
+                              {project.description ||
+                                "Project description goes here..."}
                             </p>
-                            {Array.isArray(project.technologies) && project.technologies.length > 0 && (
-                              <p style={{ margin: "0 0 0.2rem 0", fontSize: "0.75rem", color: "#6b7280" }}>
-                                <strong>Tech:</strong> {project.technologies.join(", ")}
-                              </p>
-                            )}
+                            {Array.isArray(project.technologies) &&
+                              project.technologies.length > 0 && (
+                                <p
+                                  style={{
+                                    margin: "0 0 0.2rem 0",
+                                    fontSize: "0.75rem",
+                                    color: "#6b7280",
+                                  }}
+                                >
+                                  <strong>Tech:</strong>{" "}
+                                  {project.technologies.join(", ")}
+                                </p>
+                              )}
                             {(project.link || project.github) && (
-                              <p style={{ margin: "0", fontSize: "0.75rem", color: "#6b7280" }}>
-                                {project.link && <span style={{ marginRight: "1rem" }}>🔗 <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ color: "#87CEEB" }}>Live Demo</a></span>}
-                                {project.github && <span>📁 <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ color: "#87CEEB" }}>GitHub</a></span>}
+                              <p
+                                style={{
+                                  margin: "0",
+                                  fontSize: "0.75rem",
+                                  color: "#6b7280",
+                                }}
+                              >
+                                {project.link && (
+                                  <span style={{ marginRight: "1rem" }}>
+                                    🔗{" "}
+                                    <a
+                                      href={project.link}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{ color: "#3d8eeb" }}
+                                    >
+                                      Live Demo
+                                    </a>
+                                  </span>
+                                )}
+                                {project.github && (
+                                  <span>
+                                    📁{" "}
+                                    <a
+                                      href={project.github}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{ color: "#3d8eeb" }}
+                                    >
+                                      GitHub
+                                    </a>
+                                  </span>
+                                )}
                               </p>
                             )}
                           </>
@@ -888,7 +1178,15 @@ const Template21 = () => {
                           }}
                         />
                       ) : (
-                        <p style={{ margin: "0", fontSize: "0.85rem", lineHeight: "1.3", fontStyle: "italic", color: "#6b7280" }}>
+                        <p
+                          style={{
+                            margin: "0",
+                            fontSize: "0.85rem",
+                            lineHeight: "1.3",
+                            fontStyle: "italic",
+                            color: "#6b7280",
+                          }}
+                        >
                           Add your project details here...
                         </p>
                       )}
@@ -936,7 +1234,7 @@ const Template21 = () => {
               <button
                 onClick={() => setEditMode(true)}
                 style={{
-                  backgroundColor: "#87CEEB",
+                  backgroundColor: "#3d8eeb",
                   color: "#000",
                   padding: "0.5rem 1rem",
                   borderRadius: "0.375rem",
@@ -965,7 +1263,7 @@ const Template21 = () => {
             outline: none !important;
             box-shadow: none !important;
           }
-          
+
           /* Specific resume page styling for print */
           .resume-page {
             max-width: 210mm !important;
@@ -983,33 +1281,33 @@ const Template21 = () => {
             position: relative !important;
             background: white !important;
           }
-          
+
           /* Ensure body has no margins or padding */
           body {
             margin: 0 !important;
             padding: 0 !important;
             background: white !important;
           }
-          
+
           /* Ensure content doesn't overflow on single page */
           .resume-page > * {
             page-break-inside: avoid !important;
             border: none !important;
           }
-          
+
           /* Remove any remaining border elements */
           .resume-page::before,
           .resume-page::after {
             display: none !important;
             border: none !important;
           }
-          
+
           /* Ensure proper page breaks */
           @page {
             size: A4;
             margin: 0;
           }
-          
+
           /* Force single page layout and prevent border extension */
           .resume-page {
             page-break-after: avoid !important;
@@ -1017,33 +1315,40 @@ const Template21 = () => {
             border: none !important;
             outline: none !important;
           }
-          
+
           /* Remove section borders that might cause issues */
           h3 {
-            border-bottom: 2px solid #87CEEB !important;
+            border-bottom: 2px solid #3d8eeb !important;
           }
-          
+
           /* Ensure text is readable and not cut off */
-          p, h1, h2, h3, h4, li, input, textarea {
+          p,
+          h1,
+          h2,
+          h3,
+          h4,
+          li,
+          input,
+          textarea {
             font-size: inherit !important;
             line-height: 1.3 !important;
             margin: 0.2rem 0 !important;
             padding: 0 !important;
           }
         }
-        
+
         /* A4 sizing for screen display */
         .resume-page {
           aspect-ratio: 1 / 1.414; /* A4 ratio */
           max-height: 1123px; /* A4 height in pixels at 96 DPI */
         }
-        
+
         /* Ensure content fits within page bounds */
         .resume-page {
           overflow: hidden;
           position: relative;
         }
-        
+
         /* Additional print-specific styles */
         @media print {
           /* Hide any elements that might cause layout issues */
@@ -1052,13 +1357,13 @@ const Template21 = () => {
             transition: none !important;
             animation: none !important;
           }
-          
+
           /* Ensure all content is visible */
           .resume-page * {
             visibility: visible !important;
             display: block !important;
           }
-          
+
           /* Remove any flexbox properties that might cause issues */
           .resume-page {
             display: block !important;

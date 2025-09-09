@@ -294,7 +294,7 @@ const Template10 = () => {
                                   border: "1px solid #d1d5db",
                                   borderRadius: "0.25rem",
                                   backgroundColor: "#fff",
-                                  color: "#f00"
+                                  color: "#f0f"
                                 }}
                                 value={localData.name}
                                 onChange={(e) => handleContentChange('header', e.target.value, 'name')}
@@ -316,11 +316,11 @@ const Template10 = () => {
                           ) : (
                             <>
                               <h1 style={{ fontSize: "3rem", fontWeight: "bold", margin: "0" }}>{localData.name}</h1>
-                              <p style={{ fontSize: "1.125rem", color: "#6b7280", margin: "0" }}>{localData.role}</p>
+                              <p style={{ fontSize: "1.125rem", color: "#0fb9f7", margin: "0" }}>{localData.role}</p>
                             </>
                           )}
                         </div>
-                        <div style={{ color: "#6b7280", fontSize: "0.875rem" }}>
+                        <div style={{ color: "#6b7284", fontSize: "0.875rem" }}>
                           {editMode ? (
                             <>
                               <input
@@ -429,7 +429,8 @@ const Template10 = () => {
                           position: "relative", 
                           border: "1px solid #e5e7eb", 
                           padding: "1rem", 
-                          borderRadius: "0.5rem" 
+                          borderRadius: "0.5rem", 
+                          color: "#0fb9f7"
                         }}>
                           <div style={{ 
                             display: "flex", 
@@ -450,6 +451,7 @@ const Template10 = () => {
                                     marginBottom: "0.5rem",
                                     width: "100%",
                                     backgroundColor: "#fff"
+                                    
                                   }}
                                   value={exp.title}
                                   onChange={(e) => handleArrayFieldChange('experience', idx, 'title', e.target.value)}
@@ -622,7 +624,8 @@ const Template10 = () => {
                           position: "relative", 
                           border: "1px solid #e5e7eb", 
                           padding: "1rem", 
-                          borderRadius: "0.5rem" 
+                          borderRadius: "0.5rem", 
+                          color: "#0fb9f7"
                         }}>
                           <div style={{ 
                             display: "flex", 
@@ -756,7 +759,8 @@ const Template10 = () => {
                           position: "relative", 
                           border: "1px solid #e5e7eb", 
                           padding: "1rem", 
-                          borderRadius: "0.5rem" 
+                          borderRadius: "0.5rem", 
+                          color: "#0fb9f7"
                         }}>
                           <div style={{ 
                             display: "flex", 
@@ -870,7 +874,7 @@ const Template10 = () => {
                       
                       {/* Technical Skills */}
                       <div style={{ marginBottom: "1rem" }}>
-                        <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem" }}>Technical Skills:</h3>
+                        <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem",color: "#0fb9f7" }}>Technical Skills:</h3>
                         {editMode ? (
                           <input
                             style={{
@@ -878,7 +882,8 @@ const Template10 = () => {
                               padding: "0.5rem",
                               border: "1px solid #d1d5db",
                               borderRadius: "0.25rem",
-                              backgroundColor: "#fff"
+                              backgroundColor: "#fff",
+                              
                             }}
                             value={localData.skills?.join(', ') || ''}
                             onChange={(e) => handleFieldChange('skills', e.target.value.split(',').map(s => s.trim()))}
@@ -891,7 +896,7 @@ const Template10 = () => {
                       {/* Languages */}
                       {localData.languages && localData.languages.length > 0 && (
                         <div style={{ marginBottom: "1rem" }}>
-                          <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem" }}>Languages:</h3>
+                          <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem",color: "#0fb9f7" }}>Languages:</h3>
                           {editMode ? (
                             <input
                               style={{
@@ -913,7 +918,7 @@ const Template10 = () => {
                       {/* Interests */}
                       {localData.interests && localData.interests.length > 0 && (
                         <div>
-                          <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem" }}>Interests:</h3>
+                          <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem",color: "#0fb9f7" }}>Interests:</h3>
                           {editMode ? (
                             <input
                               style={{
