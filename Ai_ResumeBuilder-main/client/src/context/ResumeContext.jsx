@@ -45,6 +45,7 @@ export const ResumeProvider = ({ children }) => {
         institution: "XYZ University",
         duration: "2016 - 2020",
         location: "Pune",
+        marks: "8.5 CGPA",
       },
     ],
 

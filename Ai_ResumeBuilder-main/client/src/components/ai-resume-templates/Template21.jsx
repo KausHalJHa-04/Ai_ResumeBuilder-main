@@ -616,7 +616,7 @@ const Template21 = () => {
                                 border: "none",
                                 background: "transparent",
                               }}
-                              placeholder="Location"
+                              placeholder="Marks"
                             />
                           </>
                         ) : (
@@ -656,7 +656,7 @@ const Template21 = () => {
                                 color: "#6b7280",
                               }}
                             >
-                              {edu.location || "New York, NY"}
+                              {edu.marks || "8.5 CGPA"}
                             </p>
                           </>
                         )}

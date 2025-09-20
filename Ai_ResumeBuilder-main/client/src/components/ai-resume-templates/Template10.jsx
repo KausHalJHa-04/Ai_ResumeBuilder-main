@@ -830,12 +830,12 @@ const Template10 = () => {
                                       width: "100%",
                                       backgroundColor: "#fff"
                                     }}
-                                    value={edu.location}
-                                    onChange={(e) => handleArrayFieldChange('education', idx, 'location', e.target.value)}
+                                    value={edu.marks}
+                                    onChange={(e) => handleArrayFieldChange('education', idx, 'Marks', e.target.value)}
                                   />
                                 </>
                               ) : (
-                                <span style={{ color: "#6b7280" }}>{edu.duration} - {edu.location}</span>
+                                <span style={{ color: "#6b7280" }}>{edu.duration} - {edu.marks}</span>
                               )}
                             </div>
                           </div>
