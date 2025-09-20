@@ -764,11 +764,11 @@ const Template10 = () => {
                         }}>
                           <div style={{ 
                             display: "flex", 
-                            flexDirection: "column", 
+                            flexDirection: "row", 
                             justifyContent: "space-between", 
                             alignItems: "flex-start" 
                           }}>
-                            <div style={{ flex: 1 }}>
+                            <div style={{ flex: 5 }}>
                               {editMode ? (
                                 <>
                                   <input
@@ -828,7 +828,7 @@ const Template10 = () => {
                                       borderRadius: "0.25rem",
                                       padding: "0.5rem",
                                       width: "100%",
-                                      backgroundColor: "#fff"
+                                      backgroundColor: "#fff",
                                     }}
                                     value={edu.marks}
                                     onChange={(e) => handleArrayFieldChange('education', idx, 'Marks', e.target.value)}

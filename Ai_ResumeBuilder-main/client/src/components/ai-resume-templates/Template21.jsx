@@ -603,7 +603,7 @@ const Template21 = () => {
                             />
                             <input
                               type="text"
-                              value={edu.location || ""}
+                              value={edu.marks || ""}
                               onChange={(e) =>
                                 handleArrayFieldChange("education", index, {
                                   location: e.target.value,
@@ -656,7 +656,7 @@ const Template21 = () => {
                                 color: "#6b7280",
                               }}
                             >
-                              {edu.marks || "8.5 CGPA"}
+                              {edu.marks || ""}
                             </p>
                           </>
                         )}
