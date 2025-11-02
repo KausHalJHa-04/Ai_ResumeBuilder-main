@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import temp1 from '../../assets/images/temp1.png';
 import temp2 from '../../assets/images/temp2.png';
@@ -9,12 +9,11 @@ import temp6 from '../../assets/images/temp6.png';
 import temp7 from '../../assets/images/temp7.png';
 import temp8 from '../../assets/images/temp8.jpg';
 import temp9 from '../../assets/images/temp9.jpg';
-
+ 
 
 import { useNavigate } from 'react-router-dom';
-const WithoutAiTemp = ({ setActiveStep }) => {
+const WithoutAiTemp = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [hoveredTemplate, setHoveredTemplate] = useState(null);
 
   const templates = [
     {
@@ -57,18 +56,18 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       name: 'Modern Momentum-6',
       preview: temp6,
       description: 'Perfect for tech professionals seeking a sleek, impactful, and well-structured presentation of their experience and skills.',
-      url: '/template6'
+      url: '/resume-template6'
     },
     {
       id: 7,
       name: 'Creative Spectrum-7',
       preview: temp7,
       description: 'perfect for a graphic designers resume template.',
-      url: '/template7'
+      url: '/resume-template7'
     },
     {
       id: 8,
-      name: 'Executive Edge-8', 
+      name: 'Executive Edge-8',
       preview: temp8,
       description: 'Professional two-column layout perfect for management and leadership roles.',
       url: '/template8'
@@ -78,14 +77,14 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       name: 'Tech Forward-9',
       preview: temp9,
       description: 'Modern single-column design with skill tags for tech professionals.',
-      url: '/template9'
+      url: '/resume-template9'
     },
     {
       id: 10,
       name: 'Classic Professional-10',
       preview: temp8,
       description: 'Clean traditional layout ideal for corporate and technical roles.',
-      url: '/template10'
+      url: '/resume-template10'
     },
     {
       id: 11,
@@ -99,7 +98,7 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       name: 'Strategic Technology Leader-12',
       preview: temp8,
       description: 'Clean, impactful layout ideal for IT and cybersecurity roles',
-      url: '/template12'
+      url: '/resume-template12'
     },
     {
       id: 13,
@@ -127,21 +126,21 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       name: 'Fiscal Visionary & Strategic Performance Architect-16',
       preview: temp8,
       description: 'Crafting financial clarity, accelerating growth, and engineering operational excellence',
-      url: '/template16'
+      url: '/resume-template16'
     },
     {
       id: 17,
       name: 'Modern Web Developer Resume Template-17',
       preview: temp8,
       description: 'Interactive resume template with vibrant design and essential developer details.',
-      url: '/template17'
+      url: '/resume-template17'
     },
     {
       id: 18,
       name: 'Resume Preview-18',
       preview: temp8,
       description: 'Clean and modern layout tailored for retail sales job seekers.',
-      url: '/template18'
+      url: '/resume-template18'
     },
     {
       id: 19,
@@ -183,21 +182,21 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       name: 'Tech Enthusiast-24',
       preview: temp8,
       description: 'Innovative computer science graduate passionate about coding and future technologies.',
-      url: '/resume-template24'
+      url: '/template24'
     },
     {
       id: 25,
       name: 'Code Innovator-25',
       preview: temp8,
       description: 'Creative software developer specializing in scalable, user-friendly web solutions',
-      url: '/resume-template25'
+      url: '/template25'
     },
     {
       id: 26,
       name: 'Code Crafter-26',
       preview: temp8,
       description: 'Dedicated developer skilled in React, CSS, and problem solving.',
-      url: '/Template26'
+      url: '/template26'
     },
     {
       id: 27,
@@ -218,98 +217,27 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       name: 'UI Crafter-29',
       preview: temp8,
       description: 'Designs seamless user experiences with clean, responsive, modern web interfaces.',
-      url: '/template29'
+      url: '/resume-template29'
     },
     {
       id: 30,
       name: ' Career Snapshot-30',
       preview: temp8,
       description: ' Showcasing skills, projects, and achievements in full stack development.',
-      url: '/Template30'
-    },
-    {
-      id: 31,
-      name: 'Experience Highlights-31',
-      preview: temp8,
-      description: ' Demonstrated success in leading teams and optimizing software performance.',
-      url: '/Template31'
-    },
-    {
-      id: 32,
-      name: 'Professional Overview-32',
-      preview: temp8,
-      description: 'Showcases expertise in software engineering and impactful development roles',
-      url: '/resume-template32'
-    },
-    {
-      id: 33,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template33'
-    },
-    {
-      id: 34,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template34'
-    },
-    {
-      id: 35,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template35'
-    },
-    {
-      id: 36,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template36'
-    },
-    {
-      id: 37,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template37'
-    },
-    {
-      id: 38,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template38'
-    },
-    {
-      id: 39,
-      name: '',
-      preview: temp8,
-      description: '',
-      url: '/resume-template39'
-    },
-    {
-      id: 40,
-      name: 'Design Innovator',
-      preview: temp8,
-      description: 'Vibrant layout for graphic designers showcasing creative excellence',
-      url: '/try'
-    },
-    {
-      id: 41,
-      name: 'Design Innovator',
-      preview: temp8,
-      description: 'Vibrant layout for graphic designers showcasing creative excellence',
-      url: '/try'
+      url: '/resume-template30'
     },
   ];
 
   const navigate = useNavigate();
-  const handleSelectTemplate = (template) => {
+  const handleSelectTemplate = (template, event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     setSelectedTemplate(template.id);
-    navigate(template.url);
+    navigate('/build-option', {
+      state: { templateId: template.id }
+    });
   };
 
   return (
@@ -317,22 +245,22 @@ const WithoutAiTemp = ({ setActiveStep }) => {
       <motion.h3
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl md:text-5xl font-extrabold mb-6 text-center tracking-wide bg-gradient-to-r from-teal-400 via-teal-300 to-orange-400 bg-clip-text text-transparent"
+        transition={{ duration: 0.6 }}
+        className="text-3xl font-bold mb-4 text-center text-gray-900"
       >
-        Choose Your Perfect Template
+        Choose Your Template
       </motion.h3>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-lg md:text-xl text-center text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed"
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="text-lg text-center text-gray-600 mb-12 max-w-2xl mx-auto"
       >
-        Select from our curated collection of professional templates designed to help you stand out and showcase your unique talents
+        Select from our collection of professional templates
       </motion.p>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
@@ -340,44 +268,64 @@ const WithoutAiTemp = ({ setActiveStep }) => {
         {templates.map((template, index) => (
           <motion.div
             key={template.id}
-            className="relative group cursor-pointer overflow-hidden rounded-2xl border border-gray-700/50 shadow-xl hover:shadow-2xl h-96 bg-gray-800/50 backdrop-blur-sm"
-            onMouseEnter={() => setHoveredTemplate(template.id)}
-            onMouseLeave={() => setHoveredTemplate(null)}
+            className="relative group cursor-pointer overflow-hidden rounded-lg border border-gray-200 shadow-sm hover:shadow-md h-80 bg-white"
+            onClick={(event) => handleSelectTemplate(template, event)}
             whileHover={{
               scale: 1.02,
-              y: -8,
-              transition: { duration: 0.3, ease: "easeOut" }
+              transition: { duration: 0.2, ease: "easeOut" }
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
+            transition={{ duration: 0.6, delay: index * 0.05 }}
           >
-            {/* Template Image */}
+            {/* Template Preview */}
             <div className="relative overflow-hidden rounded-t-2xl h-3/4">
-              <motion.img
-                src={template.preview}
-                alt={template.name}
-                className="w-full h-full object-cover transition-transform duration-700"
-                animate={hoveredTemplate === template.id ? { scale: 1.05 } : { scale: 1 }}
-              />
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-
-            {/* Template Info */}
-            <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-gray-900/95 via-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-              <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h4 className="text-xl font-bold text-white mb-2">{template.name}</h4>
-                <p className="text-gray-300 text-sm mb-4 leading-relaxed">{template.description}</p>
-                <motion.button
-                  onClick={() => handleSelectTemplate(template)}
-                  className="px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-teal-500 to-orange-500 hover:from-teal-600 hover:to-orange-600 text-white transition-all duration-300 shadow-lg hover:shadow-xl"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {selectedTemplate === template.id ? 'Selected' : 'Use Template'}
-                </motion.button>
-              </div>
+              {template.preview && template.id <= 9 ? (
+                <img
+                  src={template.preview}
+                  alt={template.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-white border-2 border-gray-100 flex items-center justify-center">
+                  <div className="text-center p-6 w-full">
+                    {/* Resume Preview Mockup */}
+                    <div className="bg-white border border-gray-200 rounded-sm p-4 text-left max-w-48 mx-auto shadow-sm">
+                      {/* Header */}
+                      <div className="border-b border-gray-200 pb-2 mb-3">
+                        <div className="h-3 bg-gray-800 rounded mb-1"></div>
+                        <div className="h-2 bg-gray-400 rounded w-2/3"></div>
+                      </div>
+                      
+                      {/* Contact Info */}
+                      <div className="space-y-1 mb-3">
+                        <div className="h-1.5 bg-gray-300 rounded w-3/4"></div>
+                        <div className="h-1.5 bg-gray-300 rounded w-1/2"></div>
+                      </div>
+                      
+                      {/* Sections */}
+                      <div className="space-y-2">
+                        <div className="h-2 bg-gray-600 rounded w-1/3"></div>
+                        <div className="space-y-1">
+                          <div className="h-1.5 bg-gray-300 rounded"></div>
+                          <div className="h-1.5 bg-gray-300 rounded w-5/6"></div>
+                        </div>
+                        
+                        <div className="h-2 bg-gray-600 rounded w-1/2 mt-3"></div>
+                        <div className="space-y-1">
+                          <div className="h-1.5 bg-gray-300 rounded w-4/5"></div>
+                          <div className="h-1.5 bg-gray-300 rounded w-3/5"></div>
+                        </div>
+                      </div>
+                      
+                      {/* Template Number */}
+                      <div className="absolute top-2 right-2 bg-gray-900 text-white text-xs px-2 py-1 rounded">
+                        {template.id}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Selection Indicator */}
@@ -385,14 +333,28 @@ const WithoutAiTemp = ({ setActiveStep }) => {
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className="absolute top-4 right-4 bg-gradient-to-r from-teal-500 to-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-10"
+                className="absolute top-3 right-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg z-10"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </motion.div>
             )}
-            
+
+            {/* Template Info */}
+            <div className="p-4 h-1/4 flex flex-col justify-between">
+              <div>
+                <h4 className="text-sm font-semibold text-gray-900 truncate mb-1">{template.name}</h4>
+                <p className="text-xs text-gray-600 line-clamp-2">{template.description}</p>
+              </div>
+              <button
+                onClick={(event) => handleSelectTemplate(template, event)}
+                className="mt-2 w-full px-3 py-2 rounded-md text-xs font-medium bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+              >
+                Use Template
+              </button>
+            </div>
+
           </motion.div>
         ))}
       </motion.div>

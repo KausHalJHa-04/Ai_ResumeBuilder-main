@@ -1,14 +1,8 @@
-import axios from "axios";
+import apiService from "./apiService";
 
 export const enhanceTextWithGemini = async (section, data) => {
   try {
-    console.log("🟢 Sending to backend:", { section, data }); // ✅ log correctly
-
-    const response = await axios.post("http://localhost:8000/api/enhance", {
-      section,
-      data,
-    });
-
+    const response = await apiService.ai.enhance(section, data);
     return response.data.enhanced;
   } catch (error) {
     console.error("❌ Enhance API error:", error);

@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
+import { toast } from 'react-toastify';
 import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import { useResume } from "../../context/ResumeContext";
+import resumeService from "../../services/resumeService";
 
 const Template26 = () => {
   const resumeContext = useResume();
@@ -13,58 +15,68 @@ const Template26 = () => {
   const [localData, setLocalData] = useState(resumeData);
   const [editMode, setEditMode] = useState(false);
   const [saveStatus, setSaveStatus] = useState('');
+  const [isSavingToDatabase, setIsSavingToDatabase] = useState(false);
   const resumeRef = useRef();
 
-  // Debug logging
   useEffect(() => {
-    console.log("Full context object:", resumeContext);
-    console.log("Context resumeData:", resumeData);
-    console.log("updateResumeData function:", updateResumeData);
-    console.log("updateResumeData type:", typeof updateResumeData);
-  }, [resumeContext, resumeData, updateResumeData]);
-
-  useEffect(() => {
-    if (resumeData) {
+    // Load data from localStorage first (for My Resumes navigation)
+    try {
+      const savedData = localStorage.getItem('resumeData');
+      if (savedData) {
+        const parsedData = JSON.parse(savedData);
+        setLocalData(parsedData);
+        return; // Use localStorage data if available
+      }
+    } catch (error) {
+      console.error('Template1: Error loading from localStorage:', error);
+    }
+    
+    // Fallback to context data
+    if (resumeData && Object.keys(resumeData).length > 0) {
       setLocalData(JSON.parse(JSON.stringify(resumeData))); // Deep copy
     }
   }, [resumeData]);
 
   const handleInputChange = (field, value) => {
-    console.log(`Updating ${field} with:`, value);
-    setLocalData(prev => ({ ...prev, [field]: value }));
+    const updatedData = { ...localData, [field]: value };
+    setLocalData(updatedData);
+    // Auto-save to localStorage for universal save system
+    localStorage.setItem('resumeData', JSON.stringify(updatedData));
   };
 
   const handleObjectChange = (section, index, field, value) => {
-    console.log(`Updating ${section}[${index}].${field} with:`, value);
-    setLocalData(prev => {
-      const updatedSection = [...(prev[section] || [])];
-      if (updatedSection[index]) {
-        updatedSection[index] = { ...updatedSection[index], [field]: value };
-      }
-      return { ...prev, [section]: updatedSection };
-    });
+    const updatedSection = [...(localData[section] || [])];
+    if (updatedSection[index]) {
+      updatedSection[index] = { ...updatedSection[index], [field]: value };
+    }
+    const updatedData = { ...localData, [section]: updatedSection };
+    setLocalData(updatedData);
+    // Auto-save to localStorage for universal save system
+    localStorage.setItem('resumeData', JSON.stringify(updatedData));
   };
 
   const addItem = (section, newItem) => {
-    console.log(`Adding item to ${section}:`, newItem);
-    setLocalData(prev => ({
-      ...prev,
-      [section]: [...(prev[section] || []), newItem]
-    }));
+    const updatedData = {
+      ...localData,
+      [section]: [...(localData[section] || []), newItem]
+    };
+    setLocalData(updatedData);
+    // Auto-save to localStorage for universal save system
+    localStorage.setItem('resumeData', JSON.stringify(updatedData));
   };
 
   const removeItem = (section, index) => {
-    console.log(`Removing item from ${section} at index ${index}`);
-    setLocalData(prev => {
-      const updatedSection = (prev[section] || []).filter((_, i) => i !== index);
-      return { ...prev, [section]: updatedSection };
-    });
+    const updatedSection = (localData[section] || []).filter((_, i) => i !== index);
+    const updatedData = { ...localData, [section]: updatedSection };
+    setLocalData(updatedData);
+    // Auto-save to localStorage for universal save system
+    localStorage.setItem('resumeData', JSON.stringify(updatedData));
   };
 
   const handleSave = async () => {
     try {
       setSaveStatus('Saving...');
-      console.log("Attempting to save data:", localData);
+      setIsSavingToDatabase(true);
       
       // Check if context is available
       if (!resumeContext) {
@@ -80,11 +92,40 @@ const Template26 = () => {
       // Call the context update function
       await updateResumeData(localData);
       
+      // Always try to save to database (will work locally)
+      try {
+        // Transform flat data structure to backend expected format
+        const structuredData = {
+          templateId: 1, // Template1
+          personalInfo: {
+            name: localData.name || '',
+            role: localData.role || '',
+            email: localData.email || '',
+            phone: localData.phone || '',
+            location: localData.location || '',
+            linkedin: localData.linkedin || '',
+            github: localData.github || '',
+            portfolio: localData.portfolio || ''
+          },
+          summary: localData.summary || '',
+          skills: localData.skills || [],
+          experience: localData.experience || [],
+          education: localData.education || [],
+          projects: localData.projects || [],
+          certifications: localData.certifications || [],
+          achievements: localData.achievements || [],
+          interests: localData.interests || [],
+          languages: localData.languages || []
+        };
+        
+        await resumeService.saveResumeData(structuredData);
+      } catch (error) {
+        console.error('Save error:', error);
+      }
+      
       // Exit edit mode
       setEditMode(false);
-      setSaveStatus('Saved successfully!');
-      
-      console.log("Resume data saved successfully");
+      setSaveStatus('Data saved successfully');
       
       // Clear success message after 3 seconds
       setTimeout(() => setSaveStatus(''), 3000);
@@ -92,14 +133,16 @@ const Template26 = () => {
     } catch (error) {
       console.error("Error saving resume data:", error);
       setSaveStatus(`Error: ${error.message}`);
+      toast.error('Failed to save');
       
       // Clear error message after 5 seconds
       setTimeout(() => setSaveStatus(''), 5000);
+    } finally {
+      setIsSavingToDatabase(false);
     }
   };
 
   const handleCancel = () => {
-    console.log("Cancelling changes, reverting to:", resumeData);
     setLocalData(resumeData ? JSON.parse(JSON.stringify(resumeData)) : {});
     setEditMode(false);
     setSaveStatus('');
@@ -107,8 +150,6 @@ const Template26 = () => {
 
   // Temporary save function for testing (fallback)
   const handleSaveLocal = () => {
-    console.log("Using local save (context not available)");
-    console.log("Data to save:", localData);
     
     // You can temporarily save to localStorage for testing
     try {
@@ -123,7 +164,7 @@ const Template26 = () => {
   };
 
   const handleEnhance = (section) => {
-    console.log(`Enhancing ${section}`);
+    // This will be handled by the Sidebar component
   };
 
   const handleFontChange = (font) => {
@@ -135,7 +176,6 @@ const Template26 = () => {
   };
 
   const handleDownload = () => {
-    console.log("Downloading resume");
   };
 
   return (

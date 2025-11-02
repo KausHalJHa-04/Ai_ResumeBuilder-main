@@ -1,87 +1,106 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 // ResumeContext.js
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const ResumeContext = createContext();
 
+// Default empty state - moved outside component to avoid re-renders
+const defaultResumeData = {
+  // 🔹 Basic Info
+  name: "",
+  role: "",
+  email: "",
+  phone: "",
+  location: "",
+  linkedin: "",
+  github: "",
+  portfolio: "",
+  profileImage: "", // for future image support
+
+  // 🔹 Summary / About
+  summary: "",
+
+  // 🔹 Skills & Tools
+  skills: [],
+  languages: [],
+  interests: [],
+
+  // 🔹 Experience
+  experience: [],
+
+  // 🔹 Education
+  education: [],
+
+  // 🔹 Projects
+  projects: [],
+
+  // 🔹 Certifications
+  certifications: [],
+
+  // 🔹 Achievements
+  achievements: [],
+};
+
 export const ResumeProvider = ({ children }) => {
-  const [resumeData, setResumeData] = useState({
-    // 🔹 Basic Info
-    name: "John Doe",
-    role: "Full Stack Developer",
-    email: "john@example.com",
-    phone: "123-456-7890",
-    location: "Pune",
-    linkedin: "https://linkedin.com/in/john",
-    github: "https://github.com/johndoe",
-    portfolio: "https://johndoe.dev",
-    profileImage: "", // for future image support
+  const [resumeData, setResumeData] = useState(defaultResumeData);
 
-    // 🔹 Summary / About
-    summary: "Passionate full-stack developer with 3+ years of experience...",
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('resumeData');
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setResumeData(prev => ({ ...prev, ...parsedData }));
+      } catch (error) {
+        console.error('❌ Error parsing saved resume data:', error);
+      }
+    } else {
+      // If no saved data, ensure we're using default data
+      setResumeData(defaultResumeData);
+    }
+  }, []);
 
-    // 🔹 Skills & Tools
-    skills: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
-    languages: ["English", "Hindi"],
-    interests: ["Open Source", "Chess", "UI Design"],
+  // Listen for localStorage changes (e.g., when cleared)
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'resumeData') {
+        if (e.newValue === null) {
+          // localStorage was cleared
+          setResumeData(defaultResumeData);
+        } else {
+          // localStorage was updated
+          try {
+            const parsedData = JSON.parse(e.newValue);
+            setResumeData(prev => ({ ...prev, ...parsedData }));
+          } catch (error) {
+            console.error('❌ Error parsing updated resume data:', error);
+          }
+        }
+      }
+    };
 
-    // 🔹 Experience
-    experience: [
-      {
-        title: "Software Developer",
-        companyName: "ABC Pvt Ltd",
-        date: "2020 - Present",
-        companyLocation: "Mumbai",
-        accomplishment: [
-          "Built scalable MERN applications used by 10k+ users",
-          "Improved API performance by 40%",
-        ],
-      },
-    ],
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
-    // 🔹 Education
-    education: [
-      {
-        degree: "B.Tech in Computer Science",
-        institution: "XYZ University",
-        duration: "2016 - 2020",
-        location: "Pune",
-        marks: "8.5 CGPA",
-      },
-    ],
+  const updateResumeData = (newData) => {
+    setResumeData(newData);
+    // Save to localStorage automatically
+    localStorage.setItem('resumeData', JSON.stringify(newData));
+  };
 
-    // 🔹 Projects
-    projects: [
-      {
-        name: "StudySync",
-        description:
-          "An online platform where students can upload, download, and interact with study notes.",
-        technologies: ["React", "Express", "MongoDB"],
-        link: "https://studysync.dev",
-        github: "https://github.com/johndoe/studysync",
-      },
-    ],
-
-    // 🔹 Certifications
-    certifications: [
-      {
-        title: "AWS Certified Developer",
-        issuer: "Amazon",
-        date: "Jan 2023",
-      },
-    ],
-
-    // 🔹 Achievements
-    achievements: [
-      "Winner - Hackathon 2022",
-      "Top 5% in Google Code Jam 2023",
-    ],
-  });
+  const resetResumeData = () => {
+    setResumeData(defaultResumeData);
+    localStorage.removeItem('resumeData');
+  };
 
   return (
-    <ResumeContext.Provider value={{ resumeData, setResumeData }}>
+    <ResumeContext.Provider value={{ resumeData, setResumeData, updateResumeData, resetResumeData }}>
       {children}
     </ResumeContext.Provider>
   );
 };
 
 export const useResume = () => useContext(ResumeContext);
+export { ResumeContext };
