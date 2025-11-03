@@ -9,7 +9,7 @@ import {
   Brain, // For Expertise
   Languages as LanguagesIcon, // For Languages
   MessageCircle, // For Summary
-} from "lucide-react";
+} from "lucide-react"; 
 
 // Frontend Developer Task Instructions
 // ... (Your instructions here) ...
